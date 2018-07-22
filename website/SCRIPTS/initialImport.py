@@ -1,7 +1,7 @@
 import csv
 from sample.models import ClusterData, ProjectData, ModuleData, ErrorData
 
-clusterData = open('~\\DATA\\clusterData.csv','r')
+clusterData = open('~\\website\\DATA\\clusterData.csv','r')
 clusterDataRow = list(tuple(rec) for rec in csv.reader(clusterData, delimiter=','))
 for element in clusterDataRow:
     currentCluster = ClusterData(
@@ -10,7 +10,7 @@ for element in clusterDataRow:
     )
     print (currentCluster)
 
-projectData = open('~\\DATA\\projectData.csv','r')
+projectData = open('~\\website\\DATA\\projectData.csv','r')
 projectDataRow = list(tuple(rec) for rec in csv.reader(projectData, delimiter=','))
 for element in projectDataRow:
     cluster_id, _ = ClusterData.objects.get_or_create(cluster_id=element[0], cluster_description=element[1])
@@ -22,7 +22,7 @@ for element in projectDataRow:
     print (currentProject)
     currentProject.save()
 
-moduleData = open('~\\DATA\\moduleData.csv','r')
+moduleData = open('~\\website\\DATA\\moduleData.csv','r')
 moduleDataRow = list(tuple(rec) for rec in csv.reader(moduleData, delimiter=','))
 for element in moduleDataRow:
     cluster_id, _ = ClusterData.objects.get_or_create(cluster_id=element[0], cluster_description=element[1])
@@ -34,8 +34,9 @@ for element in moduleDataRow:
     )
     print (currentModule)
     currentModule.save()
-    
-errorData = open('~\\DATA\\errorData.csv','r')
+
+
+errorData = open('~\\website\\DATA\\errorData.csv','r')
 errorDataRow = list(tuple(rec) for rec in csv.reader(errorData, delimiter=','))
 for element in errorDataRow:
     cluster_id, _ = ClusterData.objects.get_or_create(cluster_id=element[0], cluster_description=element[1])
