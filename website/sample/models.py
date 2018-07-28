@@ -1,9 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from import_export import resources
-
-
 # Create your models here.
+
 
 class ClusterData(models.Model):
     cluster_id = models.IntegerField(unique=True, default=timezone.now)
@@ -17,7 +15,6 @@ class ClusterData(models.Model):
 
 class ProjectData(models.Model):
     cluster_id = models.ForeignKey(ClusterData, to_field='cluster_id', on_delete=models.CASCADE)
-    #models.ForeignKey(ClusterData, on_delete=models.CASCADE)
     project_id = models.CharField(max_length=10,unique=True,default=timezone.now)
     project_description = models.CharField(max_length = 200)
     def __str__(self):
@@ -29,7 +26,6 @@ class ProjectData(models.Model):
 
 class ModuleData(models.Model):
     project_id = models.ForeignKey(ProjectData, to_field='project_id', on_delete=models.CASCADE)
-    #project = models.ForeignKey(ProjectData, on_delete=models.CASCADE)
     module_id = models.CharField(max_length=10,unique=True,default=timezone.now)
     module_description = models.CharField(max_length = 200)
     def __str__(self):
@@ -41,7 +37,6 @@ class ModuleData(models.Model):
 
 class ErrorData(models.Model):
     module_id = models.ForeignKey(ModuleData, to_field='module_id', on_delete=models.CASCADE)
-    #module = models.ForeignKey(ModuleData, on_delete=models.CASCADE)
     error_id = models.CharField(max_length=10,unique=True,default=timezone.now)
     error_description = models.CharField(max_length = 200)
     error_mitigation = models.CharField(max_length = 1000)

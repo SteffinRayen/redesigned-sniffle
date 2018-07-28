@@ -1,7 +1,7 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import ClusterData, ProjectData, ModuleData, ErrorData
+# Register your models here.
+
 
 class ClusterAdmin(admin.ModelAdmin):
     list_display = ('cluster_id','cluster_description')
@@ -18,9 +18,6 @@ class ModuleAdmin(admin.ModelAdmin):
 class ErrorAdmin(admin.ModelAdmin):
     list_display = ('error_id', 'error_description','error_mitigation','screenshot_link','author','error_validated','error_validator','editors_list')
     list_per_page = 25
-
-
-
 
 admin.site.register(ClusterData, ClusterAdmin)
 admin.site.register(ProjectData, ProjectAdmin)
