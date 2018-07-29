@@ -25,7 +25,7 @@ SECRET_KEY = '@s0*)q&8%d)0i9vg8z97l7d=y0@kdk)1vhh(qy-8iatnho94vj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',"*"]
 
 
 # Application definition
@@ -33,9 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Added link to created app
     'sample.apps.SampleConfig',
-    
+
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', # Django builtin Authentication
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -121,3 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Login redirect to search page
+LOGIN_REDIRECT_URL = '/search'

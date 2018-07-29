@@ -106,7 +106,8 @@
             margin-top: 10px;
         }
 
-        .login input[type=button] {
+        .login input[type=submit] {
+            
             width: 260px;
             height: 35px;
             background: #fff;
@@ -121,11 +122,11 @@
             margin-top: 10px;
         }
 
-        .login input[type=button]:hover {
+        .login input[type=submit]:hover {
             opacity: 0.8;
         }
 
-        .login input[type=button]:active {
+        .login input[type=submit]:active {
             opacity: 0.6;
         }
 
@@ -139,7 +140,7 @@
             border: 1px solid rgba(255, 255, 255, 0.9);
         }
 
-        .login input[type=button]:focus {
+        .login input[type=submit]:focus {
             outline: none;
         }
 
@@ -163,13 +164,28 @@
         </div>
     </div>
     <br>
-    <div class="login">
-        <input type="text" placeholder="username" name="user">
-        <br>
-        <input type="password" placeholder="password" name="password">
-        <br>
-        <input type="button" value="Login">
-    </div>
+    {% if form.errors %}
+        <p>There is something wrong with what you entered :(</p>
+    {% endif %}
+    {% if next %}
+        <p>You gotta login to access :(</p>
+    {% endif %}
+    
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="login">
+            {{form.username}}
+            {{form.password}}
+            <input type="submit" value="Login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+    </form>
+    <script type="text/javascript" >
+        $(document).ready(function(){
+            $("#id_username").attr('placeholder', '{{form.username.label}}');
+            $("#id_password").attr('placeholder', '{{form.password.label}}');
+        });
+    </script>
 </body>
 
 </html>

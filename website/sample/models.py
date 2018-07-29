@@ -51,3 +51,14 @@ class ErrorData(models.Model):
         ordering = ('error_id',)
         verbose_name = "Error Data"
         verbose_name_plural = "Error Data"
+
+
+class UserData(models.Model):
+    user_id = models.CharField(max_length = 200)
+    password = models.CharField(max_length = 200)
+    def __str__(self):
+        return "%s" % (self.user_id)
+    class Meta:
+        ordering = ('user_id',)
+        verbose_name = "User Data"
+        verbose_name_plural = "User Data"

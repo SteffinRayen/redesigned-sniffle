@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 
 from . import views # Get the current views
 
 urlpatterns = [
     path('search/', views.search, name='search'),
-    path('',views.login, name='login'),
 ]
