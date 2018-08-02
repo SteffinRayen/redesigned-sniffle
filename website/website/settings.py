@@ -123,4 +123,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Login redirect to search page
-LOGIN_REDIRECT_URL = '/search'
+LOGIN_REDIRECT_URL = '/sample/search'

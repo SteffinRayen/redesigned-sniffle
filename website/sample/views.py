@@ -11,6 +11,10 @@ def search(request):
     context = {}
     return render(request, 'sample/search.html', context)
 
+def upload(request):
+    context = {}
+    return render(request, 'sample/upload.html', context)
+
 def index(request):
     return HttpResponse("<h1>Hello, world. You're at the sample home.</h1>")
 
