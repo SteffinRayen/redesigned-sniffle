@@ -7,7 +7,7 @@ class ClusterData(models.Model):
     cluster_id = models.IntegerField(unique=True, default=timezone.now)
     cluster_description = models.CharField(max_length = 200)
     def __str__(self):
-        return "%s %s" % (self.cluster_id, self.cluster_description)
+        return "%s" % (self.cluster_id)
     class Meta:
         ordering = ('cluster_id',)
         verbose_name = "Cluster Data"
@@ -18,7 +18,7 @@ class ProjectData(models.Model):
     project_id = models.CharField(max_length=10,unique=True,default=timezone.now)
     project_description = models.CharField(max_length = 200)
     def __str__(self):
-        return "%s %s %s" % (self.cluster_id, self.project_id, self.project_description)
+        return "%s" % (self.project_id)
     class Meta:
         ordering = ('project_id',)
         verbose_name = "Project Data"
@@ -29,7 +29,7 @@ class ModuleData(models.Model):
     module_id = models.CharField(max_length=10,unique=True,default=timezone.now)
     module_description = models.CharField(max_length = 200)
     def __str__(self):
-        return "%s %s %s" % (self.project_id, self.module_id, self.module_description)
+        return "%s" % (self.module_id)
     class Meta:
         ordering = ('module_id',)
         verbose_name = "Module Data"
@@ -46,7 +46,7 @@ class ErrorData(models.Model):
     error_validator = models.CharField(max_length = 200)
     editors_list = models.CharField(max_length = 1000)
     def __str__(self):
-        return "%s %s %s %s %s %s %s %s %s" % (self.module_id, self.error_id, self.error_description,self.error_mitigation,self.screenshot_link,self.author,self.error_validated,self.error_validator,self.editors_list)
+        return "%s" % (self.error_id)
     class Meta:
         ordering = ('error_id',)
         verbose_name = "Error Data"
