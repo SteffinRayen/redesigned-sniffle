@@ -409,7 +409,7 @@
 	</div>
 	<div class="container">
 		<div class="row table-responsive">
-			<table class="table table-striped table-bordered" style="width:100%" id = "dataTable" data-order='[[ 1, "asc" ]]' data-page-length='25'>
+			<table class="table table-striped table-bordered" style="width:100%" id = "dataTable" data-order='[[ 1, "asc" ]]' data-page-length='5'>
 				<thead>
 					<tr>
 						<th>module_id</th>
@@ -424,18 +424,19 @@
 					</tr>
 				</thead>
 				<tbody>
+					{% for error_data in all_error_data %}
 					<tr>
-						<td id="module_id"></td>
-						<td id="error_id"></td>
-						<td id="error_description"></td>
-						<td id="error_mitigation"></td>
-						<td id="screenshot_link"></td>
-						<td id="author"></td>
-						<td id="error_validated"></td>
-						<td id="error_validator"></td>
-						<td id="editors_list"></td>
+						<td id="module_id">{{ error_data.module_id }}</td>
+						<td id="error_id">{{ error_data.error_id }}</td>
+						<td id="error_description">{{ error_data.error_description }}</td>
+						<td id="error_mitigation">{{ error_data.error_mitigation }}</td>
+						<td id="screenshot_link">{{ error_data.screenshot_link }}</td>
+						<td id="author">{{ error_data.author }}</td>
+						<td id="error_validated">{{ error_data.error_validated }}</td>
+						<td id="error_validator">{{ error_data.error_validator }}</td>
+						<td id="editors_list">{{ error_data.editors_list }}</td>
 					</tr>
-					
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>
