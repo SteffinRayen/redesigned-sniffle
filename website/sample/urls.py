@@ -22,4 +22,5 @@ from . import views # Get the current views
 urlpatterns = [
     path('search/', views.search, name='search'),
     path('upload/', views.upload, name='upload'),
+    path('', views.index, name='index')
 ]
