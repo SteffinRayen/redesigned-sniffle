@@ -7,19 +7,19 @@ class UserAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 class ClusterAdmin(admin.ModelAdmin):
-    list_display = ('cluster_id','cluster_description')
+    list_display = ('cluster_id','cluster_name','cluster_description')
     list_per_page = 25
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('project_id', 'project_description')
+    list_display = ('project_id', 'project_name', 'project_description')
     list_per_page = 25
 
 class ModuleAdmin(admin.ModelAdmin):
-    list_display = ('module_id','module_description')
+    list_display = ('module_id','module_name','module_description')
     list_per_page = 25
 
 class ErrorAdmin(admin.ModelAdmin):
-    list_display = ('error_id', 'error_description','error_mitigation','screenshot_link','author','error_validated','error_validator','editors_list')
+    list_display = ('error_id', 'error_name', 'error_description','error_mitigation','screenshot_link','author','error_validated','error_validator','editors_list')
     list_per_page = 25
 
 admin.site.register(UserData, UserAdmin)

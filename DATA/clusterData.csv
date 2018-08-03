@@ -1,8 +1,8 @@
-1,Telecom
-2,CITI APAC
-3,CITI Mexico
-4,SAMBA Europe
-5,Middle East
-6,SCB
-7,Delivery
-14,T24
+1,Telecom,Cluster related to Telecom
+2,CITI APAC,Cluster related to CITI APAC
+3,CITI Mexico,Cluster related to CITI Mexico
+4,SAMBA Europe,Cluster related to SAMBA Europe
+5,Middle East,Cluster related to Middle East
+6,SCB,Cluster related to SCB
+7,Delivery,Cluster related to Delivery
+14,T24,Cluster related to T24

@@ -1,24 +1,24 @@
-1,Telecom,1.1,Initial Project under Telecom
-1,Telecom,1.2,Secondary Project under Telecom
-1,Telecom,1.3,Final Project under Telecom
-2,CITI APAC,2.1,Initial Project under CITI APAC
-2,CITI APAC,2.2,Secondary Project under CITI APAC
-2,CITI APAC,2.3,Final Project under CITI APAC
-3,CITI Mexico,3.1,Initial Project under CITI Mexico
-3,CITI Mexico,3.2,Secondary Project under CITI Mexico
-3,CITI Mexico,3.3,Final Project under CITI Mexico
-4,SAMBA Europe,4.1,Initial Project under SAMBA Europe
-4,SAMBA Europe,4.2,Secondary Project under SAMBA Europe
-4,SAMBA Europe,4.3,Final Project under SAMBA Europe
-5,Middle East,5.1,Initial Project under Middle East
-5,Middle East,5.2,Secondary Project under Middle East
-5,Middle East,5.3,Final Project under Middle East
-6,SCB,6.1,Initial Project under SCB
-6,SCB,6.2,Secondary Project under SCB
-6,SCB,6.3,Final Project under SCB
-7,Delivery,7.1,Initial Project under Delivery
-7,Delivery,7.2,Secondary Project under Delivery
-7,Delivery,7.3,Final Project under Delivery
-14,T24,14.1,Initial Project under T24
-14,T24,14.2,Secondary Project under T24
-14,T24,14.3,Final Project under T24
+1,Telecom,Cluster related to Telecom,1.1,Initial Project under Telecom,Project description of Initial Project under Telecom
+1,Telecom,Cluster related to Telecom,1.2,Secondary Project under Telecom,Project description of Secondary Project under Telecom
+1,Telecom,Cluster related to Telecom,1.3,Final Project under Telecom,Project description of Final Project under Telecom
+2,CITI APAC,Cluster related to CITI APAC,2.1,Initial Project under CITI APAC,Project description of Initial Project under CITI APAC
+2,CITI APAC,Cluster related to CITI APAC,2.2,Secondary Project under CITI APAC,Project description of Secondary Project under CITI APAC
+2,CITI APAC,Cluster related to CITI APAC,2.3,Final Project under CITI APAC,Project description of Final Project under CITI APAC
+3,CITI Mexico,Cluster related to CITI Mexico,3.1,Initial Project under CITI Mexico,Project description of Initial Project under CITI Mexico
+3,CITI Mexico,Cluster related to CITI Mexico,3.2,Secondary Project under CITI Mexico,Project description of Secondary Project under CITI Mexico
+3,CITI Mexico,Cluster related to CITI Mexico,3.3,Final Project under CITI Mexico,Project description of Final Project under CITI Mexico
+4,SAMBA Europe,Cluster related to SAMBA Europe,4.1,Initial Project under SAMBA Europe,Project description of Initial Project under SAMBA Europe
+4,SAMBA Europe,Cluster related to SAMBA Europe,4.2,Secondary Project under SAMBA Europe,Project description of Secondary Project under SAMBA Europe
+4,SAMBA Europe,Cluster related to SAMBA Europe,4.3,Final Project under SAMBA Europe,Project description of Final Project under SAMBA Europe
+5,Middle East,Cluster related to Middle East,5.1,Initial Project under Middle East,Project description of Initial Project under Middle East
+5,Middle East,Cluster related to Middle East,5.2,Secondary Project under Middle East,Project description of Secondary Project under Middle East
+5,Middle East,Cluster related to Middle East,5.3,Final Project under Middle East,Project description of Final Project under Middle East
+6,SCB,Cluster related to SCB,6.1,Initial Project under SCB,Project description of Initial Project under SCB
+6,SCB,Cluster related to SCB,6.2,Secondary Project under SCB,Project description of Secondary Project under SCB
+6,SCB,Cluster related to SCB,6.3,Final Project under SCB,Project description of Final Project under SCB
+7,Delivery,Cluster related to Delivery,7.1,Initial Project under Delivery,Project description of Initial Project under Delivery
+7,Delivery,Cluster related to Delivery,7.2,Secondary Project under Delivery,Project description of Secondary Project under Delivery
+7,Delivery,Cluster related to Delivery,7.3,Final Project under Delivery,Project description of Final Project under Delivery
+14,T24,Cluster related to T24,14.1,Initial Project under T24,Project description of Initial Project under T24
+14,T24,Cluster related to T24,14.2,Secondary Project under T24,Project description of Secondary Project under T24
+14,T24,Cluster related to T24,14.3,Final Project under T24,Project description of Final Project under T24
