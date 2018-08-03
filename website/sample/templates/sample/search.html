@@ -117,14 +117,15 @@
 		}
 
 		.panel-advanced-search {
-			margin: 0 0 16px;
-			padding: 0.5em;
+			margin: 1em 3em;
+			padding: 2em;
 			border: 1px solid #a1a1a1;
 			overflow: auto;
+			
 		}
 
 		body {
-			font: 100%/1.5 "Clan OT", HelveticaNeue, Helvetica, Arial, sans-serif;
+			font: 100% "Clan OT", HelveticaNeue, Helvetica, Arial, sans-serif;
 			padding: 1em;
 		}
 
@@ -140,6 +141,7 @@
 			padding-bottom: 1em;
 			font-weight: normal;
 			color: #777;
+			text-align: left;
 		}
 
 		.input {
@@ -184,7 +186,7 @@
 
 		.listbox {
 			display: inline-block;
-			max-height: 100px;
+			max-height: 200px;
 			width: 100%;
 			overflow-y: scroll;
 		}
@@ -206,6 +208,11 @@
 
 		.listbox li:last-child {
 			margin: 0;
+		}
+
+		ul.listbox li.disabled {
+			pointer-events: none;
+			opacity: 0.6;
 		}
 
 		@media all and (min-width: 50em) {
@@ -269,6 +276,7 @@
 		.is-hidden {
 			display: none;
 		}
+
 		@media (min-width: 1200px) {
 			.container {
 				width: 95%;
@@ -278,6 +286,7 @@
 </head>
 
 <body>
+	{% csrf_token %}
 	<div class="search-block">
 		<div class="container container--flex">
 			<input type="text" class="input--search" placeholder="Enter Error Displayed" size="1" id="errorID">
@@ -317,30 +326,15 @@
 							<div class="button button--secondary button--small" onclick="unSelectAll('cluster')">Check None</div>
 						</div>
 						<ul class="list listbox">
+							{% if all_cluster_data %}{% for cluster_data in all_cluster_data %}
 							<li>
-								<input type="checkbox" name="cluster">Cluster 1
+								<input type="checkbox" name="cluster" id="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_description }}
 							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 2
+							{% endfor %} {% else %}
+							<li class="disabled">
+								None Matches :(
 							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 3
-							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 4
-							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 5
-							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 6
-							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 7
-							</li>
-							<li>
-								<input type="checkbox" name="cluster">Cluster 14
-							</li>
+							{% endif %}
 						</ul>
 					</fieldset>
 				</div>
@@ -352,18 +346,15 @@
 							<div class="button button--secondary button--small" onclick="unSelectAll('project')">Check None</div>
 						</div>
 						<ul class="list listbox">
+							{% if all_project_data %}{% for project_data in all_project_data %}
 							<li>
-								<input type="checkbox" name="project">Project 1
+								<input type="checkbox" name="project" id="{{project_data.project_id}}">{{project_data.project_description}}
 							</li>
-							<li>
-								<input type="checkbox" name="project">Project 2
+							{% endfor %} {% else %}
+							<li class="disabled">
+								None Matches :(
 							</li>
-							<li>
-								<input type="checkbox" name="project">Project 3
-							</li>
-							<li>
-								<input type="checkbox" name="project">Project 4
-							</li>
+							{% endif %}
 						</ul>
 					</fieldset>
 				</div>
@@ -375,18 +366,15 @@
 							<div class="button button--secondary button--small" onclick="unSelectAll('module')">Check None</div>
 						</div>
 						<ul class="list listbox">
+							{% if all_module_data %} {% for module_data in all_module_data %}
 							<li>
-								<input type="checkbox" name="module">Module 1
+								<input type="checkbox" name="module" id="{{module_data.module_id}}">{{module_data.module_description}}
 							</li>
-							<li>
-								<input type="checkbox" name="module">Module 2
+							{% endfor %} {% else %}
+							<li class="disabled">
+								None Matches :(
 							</li>
-							<li>
-								<input type="checkbox" name="module">Module 3
-							</li>
-							<li>
-								<input type="checkbox" name="module">Module 4
-							</li>
+							{% endif %}
 						</ul>
 					</fieldset>
 				</div>
@@ -409,7 +397,7 @@
 	</div>
 	<div class="container">
 		<div class="row table-responsive">
-			<table class="table table-striped table-bordered" style="width:100%" id = "dataTable" data-order='[[ 1, "asc" ]]' data-page-length='5'>
+			<table class="table table-striped table-bordered" style="width:100%" id="dataTable" data-order='[[ 1, "asc" ]]' data-page-length='5'>
 				<thead>
 					<tr>
 						<th>module_id</th>
@@ -459,12 +447,12 @@
 				}
 			});
 			// table pagination
-			$('#dataTable').DataTable( {
+			$('#dataTable').DataTable({
 				"pagingType": "full_numbers",
 				searching: false,
-				
-			} );
-			
+
+			});
+
 		});
 		// search modal select and unselecting
 		function selectAll(item) {
@@ -487,7 +475,6 @@
 			document.getElementById(formName).reset();
 			document.getElementById("errorID").value = "";
 		}
-		
 	</script>
 </body>
 
