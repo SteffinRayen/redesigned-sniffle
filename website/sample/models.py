@@ -43,7 +43,8 @@ class ErrorData(models.Model):
     error_id = models.CharField(max_length=10,unique=True,default=timezone.now)
     error_name = models.CharField(max_length = 1000)
     error_description = models.CharField(max_length = 1000)
-    error_mitigation = models.CharField(max_length = 1000)
+    error_mitigation = models.CharField(max_length = 1000) 
+    link_valid = models.BooleanField(default=False)
     screenshot_link = models.CharField(max_length = 1000)
     author = models.CharField(max_length = 1000)
     error_validated = models.BooleanField(default=False)
@@ -58,6 +59,9 @@ class ErrorData(models.Model):
 
 
 class UserData(models.Model):
+    cluster_id = models.ForeignKey(ClusterData, to_field='cluster_id', on_delete=models.CASCADE,default="1")
+    project_id = models.ForeignKey(ProjectData, to_field='project_id', on_delete=models.CASCADE,default="1.1")
+    module_id = models.ForeignKey(ModuleData, to_field='module_id', on_delete=models.CASCADE,default="1.1.1")
     user_id = models.CharField(max_length = 1000)
     password = models.CharField(max_length = 1000)
     def __str__(self):

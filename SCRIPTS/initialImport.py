@@ -1,7 +1,7 @@
 import csv
 from sample.models import ClusterData, ProjectData, ModuleData, ErrorData
 
-clusterData = open('~\\DATA\\clusterData.csv','r')
+clusterData = open('F:\\GIT_WORKSPACE\\redesignedSniffle\\DATA\\clusterData.csv','r')
 clusterDataRow = list(tuple(rec) for rec in csv.reader(clusterData, delimiter=','))
 for element in clusterDataRow:
     currentCluster = ClusterData(
@@ -11,7 +11,7 @@ for element in clusterDataRow:
     )
     print (currentCluster)
 
-projectData = open('~\\DATA\\projectData.csv','r')
+projectData = open('F:\\GIT_WORKSPACE\\redesignedSniffle\\DATA\\projectData.csv','r')
 projectDataRow = list(tuple(rec) for rec in csv.reader(projectData, delimiter=','))
 for element in projectDataRow:
     cluster_id, _ = ClusterData.objects.get_or_create(cluster_id=element[0], cluster_name=element[1], cluster_description=element[2])
@@ -24,7 +24,7 @@ for element in projectDataRow:
     print (currentProject)
     currentProject.save()
 
-moduleData = open('~\\DATA\\moduleData.csv','r')
+moduleData = open('F:\\GIT_WORKSPACE\\redesignedSniffle\\DATA\\moduleData.csv','r')
 moduleDataRow = list(tuple(rec) for rec in csv.reader(moduleData, delimiter=','))
 for element in moduleDataRow:
     cluster_id, _ = ClusterData.objects.get_or_create(cluster_id=element[0], cluster_name=element[1], cluster_description=element[2])
@@ -39,7 +39,7 @@ for element in moduleDataRow:
     currentModule.save()
 
 
-errorData = open('~\\DATA\\errorData.csv','r')
+errorData = open('F:\\GIT_WORKSPACE\\redesignedSniffle\\DATA\\errorData.csv','r')
 errorDataRow = list(tuple(rec) for rec in csv.reader(errorData, delimiter=','))
 for element in errorDataRow:
     cluster_id, _ = ClusterData.objects.get_or_create(cluster_id=element[0], cluster_name=element[1], cluster_description=element[2])
@@ -51,11 +51,12 @@ for element in errorDataRow:
         error_name = element[10],
         error_description = element[11],
         error_mitigation = element[12],
-        screenshot_link = element[13],
-        author = element[14],
-        error_validated = element[15],
-        error_validator = element[16],
-        editors_list = element[17],
+        link_valid = element[13],
+        screenshot_link = element[14],
+        author = element[15],
+        error_validated = element[16],
+        error_validator = element[17],
+        editors_list = element[18],
     )
     print (currentError)
     currentError.save()

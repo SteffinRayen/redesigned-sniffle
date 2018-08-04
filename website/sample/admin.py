@@ -3,7 +3,7 @@ from .models import UserData,ClusterData, ProjectData, ModuleData, ErrorData
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('user_id','password')
+    list_display = ('user_id','password','cluster_id','project_id','module_id')
     list_per_page = 25
 
 class ClusterAdmin(admin.ModelAdmin):
@@ -19,7 +19,7 @@ class ModuleAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 class ErrorAdmin(admin.ModelAdmin):
-    list_display = ('error_id', 'error_name', 'error_description','error_mitigation','screenshot_link','author','error_validated','error_validator','editors_list')
+    list_display = ('error_id', 'error_name', 'error_description','error_mitigation','link_valid','screenshot_link','author','error_validated','error_validator','editors_list')
     list_per_page = 25
 
 admin.site.register(UserData, UserAdmin)
