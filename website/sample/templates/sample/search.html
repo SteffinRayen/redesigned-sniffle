@@ -122,7 +122,7 @@
 			padding: 2em;
 			border: 1px solid #a1a1a1;
 			overflow: auto;
-			
+
 		}
 
 		body {
@@ -290,15 +290,13 @@
 	{% csrf_token %}
 	<div class="search-block">
 		<div class="container container--flex">
-			<input type="text" class="input--search" placeholder="Enter Error Displayed" size="1" id="errorID">
+			<input type="text" class="input--search" placeholder="Enter Error Displayed" size="1" id="errorDesc">
 			<div class="button-group">
 				<button class="button button--toolbar button--advanced js-button--advanced">
 					<span class="button--advanced__text">Advanced </span>
 					<i class="fa fa-sliders"></i>
 				</button>
-				<button class="button button--toolbar button--search">
-					<i class="fa fa-search"></i>
-				</button>
+
 			</div>
 		</div>
 	</div>
@@ -309,12 +307,12 @@
 			<div class="g-2up">
 				<div class="field gi">
 					<label for="" class="label">Error ID</label>
-					<input type="input" placeholder="" value="" class="input" />
+					<input type="input" placeholder="" value="" class="input" id="errorID" />
 				</div>
 				<!--end field-->
 				<div class="field gi">
 					<label for="" class="label">Author</label>
-					<input id="" type="input" placeholder="" value="" class="input" />
+					<input id="" type="input" placeholder="" value="" class="input" id="editor" />
 				</div>
 				<!--end field-->
 			</div>
@@ -326,16 +324,16 @@
 							<div class="button button--secondary button--small" onclick="selectAll('cluster')">Check All</div>
 							<div class="button button--secondary button--small" onclick="unSelectAll('cluster')">Check None</div>
 						</div>
-						<ul class="list listbox">
-							{% if all_cluster_data %}{% for cluster_data in all_cluster_data %}
+						<ul class="list listbox" id="cluster">
+							{% for cluster_data in all_cluster_data %}
 							<li>
-								<input type="checkbox" name="cluster" id="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_description }}
+								<input type="checkbox" name="cluster" id="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_name }}
 							</li>
-							{% endfor %} {% else %}
+							{% empty %}
 							<li class="disabled">
 								<input type="checkbox" name="cluster" id="0">------------
 							</li>
-							{% endif %}
+							{% endfor %}
 						</ul>
 					</fieldset>
 				</div>
@@ -346,16 +344,16 @@
 							<div class="button button--secondary button--small" onclick="selectAll('project')">Check All</div>
 							<div class="button button--secondary button--small" onclick="unSelectAll('project')">Check None</div>
 						</div>
-						<ul class="list listbox">
-							{% if all_project_data %}{% for project_data in all_project_data %}
+						<ul class="list listbox" id="project">
+							{% for project_data in all_project_data %}
 							<li>
-								<input type="checkbox" name="project" id="{{project_data.project_id}}">{{project_data.project_description}}
+								<input type="checkbox" name="project" id="{{project_data.project_id}}">{{project_data.project_name}}
 							</li>
-							{% endfor %} {% else %}
+							{% empty %}
 							<li class="disabled">
 								<input type="checkbox" name="project" id="0">------------
 							</li>
-							{% endif %}
+							{% endfor %}
 						</ul>
 					</fieldset>
 				</div>
@@ -366,16 +364,17 @@
 							<div class="button button--secondary button--small" onclick="selectAll('module')">Check All</div>
 							<div class="button button--secondary button--small" onclick="unSelectAll('module')">Check None</div>
 						</div>
-						<ul class="list listbox">
-							{% if all_module_data %} {% for module_data in all_module_data %}
+						<ul class="list listbox" id="module">
+							{% for module_data in all_module_data %}
 							<li>
-								<input type="checkbox" name="module" id="{{module_data.module_id}}">{{module_data.module_description}}
+								<input type="checkbox" name="module" id="{{module_data.module_id}}">{{module_data.module_name}}
 							</li>
-							{% endfor %} {% else %}
+							{% empty %}
 							<li class="disabled">
 								<input type="checkbox" name="module" id="0">------------
 							</li>
-							{% endif %}
+							{% endfor %}
+							
 						</ul>
 					</fieldset>
 				</div>
@@ -419,7 +418,9 @@
 						<td id="error_description">{{ error_data.error_description }}</td>
 						<td id="error_mitigation">{{ error_data.error_mitigation }}</td>
 						{% if error_data.link_valid == True %}
-						<td id="screenshot_link"><a href="{{ error_data.screenshot_link }}" target="_blank" >link_{{error_data.error_id}}</a></td>
+						<td id="screenshot_link">
+							<a href="{{ error_data.screenshot_link }}" target="_blank">link_{{error_data.error_id}}</a>
+						</td>
 						{% else %}
 						<td id="screenshot_link">{{ error_data.screenshot_link }}</td>
 						{% endif %}
@@ -438,7 +439,12 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<script>
-		//advanced search modal
+		// Load all the values into a js array
+		var jsCluster = {{cluster_data_pair|safe}};
+		var jsProject = {{project_data_pair|safe}};
+		var jsModule = {{module_data_pair|safe}};
+		console.log(jsCluster)
+		// advanced search modal
 		$(document).ready(function () {
 			$('.js-button--advanced').click(function () {
 				var panel = $(".panel-advanced-search");
@@ -456,6 +462,7 @@
 				searching: false,
 
 			});
+
 
 		});
 		// search modal select and unselecting
@@ -477,7 +484,7 @@
 		// reseting the form
 		function resetForm(formName) {
 			document.getElementById(formName).reset();
-			document.getElementById("errorID").value = "";
+			document.getElementById("errorDesc").value = "";
 		}
 		// Ajax loading on change event
 	</script>
