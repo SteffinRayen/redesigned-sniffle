@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+#https://stackoverflow.com/questions/15706489/redirect-to-named-url-pattern-directly-from-urls-py-in-django
+from django.views.generic import RedirectView
 
 from . import views # Get the current views
 
 urlpatterns = [
+    path('ajax/', views.ajax, name='ajax'),
     path('search/', views.search, name='search'),
     path('upload/', views.upload, name='upload'),
-    path('', views.index, name='index')
+    path('', RedirectView.as_view(url='login', permanent=False)),
 ]

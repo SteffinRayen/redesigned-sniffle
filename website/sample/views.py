@@ -15,25 +15,28 @@ def search(request):
     all_module_data = ModuleData.objects.all()
     all_project_data = ProjectData.objects.all()
     all_error_data = ErrorData.objects.all()
-    
-    dict_pair_cluster = ClusterData.objects.values_list(
-        'cluster_id', 'cluster_name')
-    dict_pair_project = ProjectData.objects.values_list(
-        'project_id', 'project_name')
-    dict_pair_module = ModuleData.objects.values_list(
-        'module_id', 'module_name')
-    dict_pair_error = ErrorData.objects.values_list('error_id', 'error_name')
+
+    context = {
+        'cluster_data': all_cluster_data,
+        'module_data': all_module_data,
+        'project_data': all_project_data,
+        'error_data': all_error_data,
+    }
+    return render(request, 'sample/search.html', context)
+
+
+def ajax(request):
+    dict_pair_cluster = ClusterData.objects.values_list()
+    dict_pair_project = ProjectData.objects.values_list()
+    dict_pair_module = ModuleData.objects.values_list()
+    dict_pair_error = ErrorData.objects.values_list()
     context = {
         'cluster_data_pair': json.dumps(list(dict_pair_cluster), cls=DjangoJSONEncoder),
         'module_data_pair': json.dumps(list(dict_pair_project), cls=DjangoJSONEncoder),
         'project_data_pair': json.dumps(list(dict_pair_module), cls=DjangoJSONEncoder),
-        
-        'all_cluster_data': all_cluster_data,
-        'all_module_data': all_module_data,
-        'all_project_data': all_project_data,
-        'all_error_data': all_error_data,
+        'error_data_pair': json.dumps(list(dict_pair_error), cls=DjangoJSONEncoder),
     }
-    return render(request, 'sample/search.html', context)
+    return render(request, 'sample/ajaxTrial.html', context)
 
 
 def upload(request):

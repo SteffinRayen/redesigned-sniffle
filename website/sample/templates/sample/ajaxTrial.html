@@ -1,4 +1,4 @@
-{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html>
 
@@ -287,7 +287,6 @@
 </head>
 
 <body>
-	{% csrf_token %}
 	<div class="search-block">
 		<div class="container container--flex">
 			<input type="text" class="input--search" placeholder="Enter Error Displayed" size="1" id="errorDesc">
@@ -325,15 +324,13 @@
 							<div class="button button--secondary button--small" onclick="unSelectAll('cluster')">Check None</div>
 						</div>
 						<ul class="list listbox" id="cluster">
-							{% for cluster_data in cluster_data %}
 							<li>
-								<input type="checkbox" name="cluster" id="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_name }}
+								<input type="checkbox" name="cluster" >
 							</li>
-							{% empty %}
 							<li class="disabled">
-								<input type="checkbox" name="cluster" id="0">------------
+								<input type="checkbox" name="disabled" id="0">------------
 							</li>
-							{% endfor %}
+							
 						</ul>
 					</fieldset>
 				</div>
@@ -345,15 +342,13 @@
 							<div class="button button--secondary button--small" onclick="unSelectAll('project')">Check None</div>
 						</div>
 						<ul class="list listbox" id="project">
-							{% for project_data in project_data %}
 							<li>
-								<input type="checkbox" name="project" id="{{project_data.project_id}}">{{project_data.project_name}}
+								<input type="checkbox" name="project" >
 							</li>
-							{% empty %}
 							<li class="disabled">
-								<input type="checkbox" name="project" id="0">------------
+								<input type="checkbox" name="disabled" id="0">------------
 							</li>
-							{% endfor %}
+							
 						</ul>
 					</fieldset>
 				</div>
@@ -365,15 +360,12 @@
 							<div class="button button--secondary button--small" onclick="unSelectAll('module')">Check None</div>
 						</div>
 						<ul class="list listbox" id="module">
-							{% for module_data in module_data %}
 							<li>
-								<input type="checkbox" name="module" id="{{module_data.module_id}}">{{module_data.module_name}}
+								<input type="checkbox" name="module">
 							</li>
-							{% empty %}
 							<li class="disabled">
-								<input type="checkbox" name="module" id="0">------------
+								<input type="checkbox" name="disabled" id="0">------------
 							</li>
-							{% endfor %}
 							
 						</ul>
 					</fieldset>
@@ -411,25 +403,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for error_data in error_data %}
 					<tr>
-						<td id="error_id">{{ error_data.error_id }}</td>
-						<td id="error_name">{{ error_data.error_name }}</td>
-						<td id="error_description">{{ error_data.error_description }}</td>
-						<td id="error_mitigation">{{ error_data.error_mitigation }}</td>
-						{% if error_data.link_valid == True %}
+						<td id="error_id"></td>
+						<td id="error_name"></td>
+						<td id="error_description"></td>
+						<td id="error_mitigation"></td>
 						<td id="screenshot_link">
-							<a href="{{ error_data.screenshot_link }}" target="_blank">link_{{error_data.error_id}}</a>
+							<a href="" target="_blank"></a>
 						</td>
-						{% else %}
-						<td id="screenshot_link">{{ error_data.screenshot_link }}</td>
-						{% endif %}
-						<td id="author">{{ error_data.author }}</td>
-						<td id="error_validated">{{ error_data.error_validated }}</td>
-						<td id="error_validator">{{ error_data.error_validator }}</td>
-						<td id="editors_list">{{ error_data.editors_list }}</td>
+						<td id="author"></td>
+						<td id="error_validated"></td>
+						<td id="error_validator"></td>
+						<td id="editors_list"></td>
 					</tr>
-					{% endfor %}
+					
 				</tbody>
 			</table>
 		</div>
@@ -455,9 +442,21 @@
 			$('#dataTable').DataTable({
 				"pagingType": "full_numbers",
 				searching: false,
-
+			});
+			// cluster checkbox
+			$("#cluster").change(function(){
+				alert("cluster");
 			});
 
+			// project checkbox
+			$("#project").change(function(){
+				alert("project");
+			});
+
+			// module checkbox
+			$("#module").change(function(){
+				alert("module");
+			});
 
 		});
 		// search modal select and unselecting
@@ -476,7 +475,7 @@
 					items[i].checked = false;
 			}
 		}
-		// reseting the form
+		// resetting the form
 		function resetForm(formName) {
 			document.getElementById(formName).reset();
 			document.getElementById("errorDesc").value = "";
