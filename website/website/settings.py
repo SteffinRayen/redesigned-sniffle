@@ -25,7 +25,7 @@ SECRET_KEY = '@s0*)q&8%d)0i9vg8z97l7d=y0@kdk)1vhh(qy-8iatnho94vj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',"*"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', "*"]
 
 
 # Application definition
@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'sample.apps.SampleConfig',
 
     'django.contrib.admin',
-    'django.contrib.auth', # Django builtin Authentication
+    'django.contrib.auth',  # Django builtin Authentication
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'widget_tweaks',  # form tweaks
 ]
 
 MIDDLEWARE = [
