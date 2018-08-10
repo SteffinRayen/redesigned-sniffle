@@ -7,10 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Search</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
 	<style>
@@ -19,6 +16,7 @@
 		*:after {
 			box-sizing: border-box;
 			font-size: 20px;
+			margin: 0.5rem;
 		}
 
 		.container {
@@ -31,368 +29,139 @@
 			display: flex;
 		}
 
-		.input--search {
-			padding: .5em;
-			background-color: white;
-			color: #777;
-			border: 2px solid transparent;
-			border: 1px solid rgba(0, 0, 0, 0.2);
-			flex-grow: 1;
-		}
-
-		@media all and (min-width: 37.5em) {
-			.input--search {
-				font-size: 1.25em;
-			}
-		}
-
-		.input--search::-webkit-input-placeholder {
-			color: rgba(0, 0, 0, 0.35);
-		}
-
-		.input--search:focus {
-			outline: 5px auto #7D03FF;
-			outline-offset: -2px;
-		}
-
-		.button-group {
-			display: inline-block;
-			vertical-align: top;
-			margin-left: -5px;
-		}
-
-		.flexbox .button-group {
-			margin-left: -1px;
-		}
-
-		.button {
-			display: inline-block;
-			padding: .5em;
-			border: none;
-			font-size: 1em;
-			vertical-align: top;
-			background-color: rgba(0, 0, 0, 0.05);
-			color: #777;
-			transition: background-color .3s;
-			text-align: center;
-		}
-
-		@media all and (min-width: 37.5em) {
-			.button {
-				font-size: 1.25em;
-			}
-		}
-
-		.button:hover {
-			background-color: rgba(0, 0, 0, 0.2);
-		}
-
-		.button:focus {
-			outline: none;
-		}
-
-		.button--toolbar {
-			border: 1px solid rgba(0, 0, 0, 0.18);
-			border-radius: 0;
-			text-transform: lowercase;
-		}
-
-		.button--advanced__text {
-			display: none;
-		}
-
-		@media all and (min-width: 23em) {
-			.button--advanced__text {
-				display: inline;
-			}
-		}
-
-		.button--search {
-			margin-left: -5px;
-			background-color: #0192d0;
-			color: white;
-		}
-
-		.button--search:hover {
-			background-color: #016e9d;
-		}
-
-		.panel-advanced-search {
-			margin: 1em 3em;
-			padding: 2em;
-			border: 1px solid #a1a1a1;
-			overflow: auto;
-
-		}
-
-		body {
-			font: 100% "Clan OT", HelveticaNeue, Helvetica, Arial, sans-serif;
-			padding: 1em;
-		}
-
-		.heading--form {
-			font-size: 1.5em;
-			margin: 0 0 0 .25em;
-			color: rgba(0, 0, 0, 0.7);
-		}
-
-		.label {
-			font-size: 1.2em;
-			display: block;
-			padding-bottom: 1em;
-			font-weight: normal;
-			color: #777;
-			text-align: left;
-		}
-
-		.input {
-			width: 100%;
-			border-width: 1px;
-			border-style: solid;
-			border-color: rgba(0, 0, 0, 0.2);
-			border-radius: 4px;
-			padding: .5rem;
-		}
-
-		.button--secondary {
-			color: white;
-			background: #777;
-		}
-
-		.button--small {
-			border-radius: 2px;
-			font-size: 0.7em;
-			text-transform: uppercase;
-			font-weight: normal;
-			padding: 0.5em;
-		}
-
-		.button--positive {
-			background-color: #3fba47;
-		}
-
-		.button--positive:hover {
-			background-color: #329438;
-		}
-
-		.fieldset__buttons {
-			margin-bottom: 0.5em;
-		}
-
-		.list {
-			margin: 0px;
-			padding: 0px;
-			list-style: none;
-		}
-
-		.listbox {
-			display: inline-block;
-			max-height: 200px;
-			width: 100%;
-			overflow-y: scroll;
-		}
-
-		.listbox::-webkit-scrollbar {
-			width: 7px;
-			background-color: rgba(0, 0, 0, 0.2);
-		}
-
-		.listbox::-webkit-scrollbar-thumb {
-			border-radius: 4px;
-			background-color: #777;
-			-webkit-box-shadow: 0 0 1px #777;
-		}
-
-		.listbox li {
-			margin-bottom: 8px;
-		}
-
-		.listbox li:last-child {
-			margin: 0;
-		}
-
-		ul.listbox li.disabled {
-			pointer-events: none;
-			opacity: 0.6;
-		}
-
-		@media all and (min-width: 50em) {
-			.form__actions--right {
-				margin-top: 2em;
-				text-align: right;
-			}
-		}
-
-		input[type="checkbox"] {
-			width: auto;
-			margin-right: 0.3em;
-		}
-
-		@media (min-width: 46.8em) {
-			.g-2up>.gi {
-				float: left;
-				width: 50%;
-			}
-		}
-
-		@media (min-width: 46.8em) {
-			.g-2up>.gi:nth-of-type(2n+1) {
-				clear: left;
-			}
-		}
-
-		.gi {
-			padding: 0.5em;
-		}
-
-		@media (min-width: 46.8em) {
-			.gi {
-				float: left;
-			}
-		}
-
-		@media (min-width: 46.8em) {
-			.g-3up>.gi {
-				float: left;
-				width: 33.3333%;
-			}
-		}
-
-		@media (min-width: 46.8em) {
-			.g-3up>.gi:nth-of-type(3n+1) {
-				clear: left;
-			}
-		}
-
-		.gi {
-			padding: 0.5em;
-		}
-
-		@media (min-width: 46.8em) {
-			.gi {
-				float: left;
-			}
-		}
-
-		.is-hidden {
-			display: none;
-		}
 
 		@media (min-width: 1200px) {
 			.container {
 				width: 95%;
 			}
 		}
+
+		body {
+			
+			font-family: Arial, Helvetica;
+		}
+
+		.select-container {
+			/* margin: 2rem; */
+			text-align: center;
+		}
+
+		.big {
+			font-size: 1.2em;
+		}
+
+		.square {
+			width: .7em;
+			height: .7em;
+			margin: .5em;
+			display: inline-block;
+		}
+
+		/* Custom dropdown */
+
+		.custom-dropdown {
+			position: relative;
+			display: inline-block;
+			vertical-align: middle;
+			margin: 10px;
+			/* demo only */
+		}
+
+		.custom-dropdown select {
+			background-color: #000;
+			color: #fff;
+			font-size: inherit;
+			padding: .5em;
+			padding-right: 2.5em;
+			border: 0;
+			margin: 0;
+			border-radius: 3px;
+			text-indent: 0.01px;
+			text-overflow: '';
+			-webkit-appearance: button;
+			/* hide default arrow in chrome OSX */
+		}
+
+		.custom-dropdown::before,
+		.custom-dropdown::after {
+			content: "";
+			position: absolute;
+			pointer-events: none;
+		}
+
+		.custom-dropdown::after {
+			/*  Custom dropdown arrow */
+			content: "\25BC";
+			height: 1em;
+			font-size: .625em;
+			line-height: 1;
+			right: 1.2em;
+			top: 50%;
+			margin-top: -.5em;
+		}
+
+		.custom-dropdown::before {
+			/*  Custom dropdown arrow cover */
+			width: 2em;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			border-radius: 0 3px 3px 0;
+		}
+
+		.custom-dropdown select[disabled] {
+			color: rgba(0, 0, 0, .3);
+		}
+
+		.custom-dropdown select[disabled]::after {
+			color: rgba(0, 0, 0, .1);
+		}
+
+		.custom-dropdown::before {
+			background-color: rgba(0, 0, 0, .15);
+		}
+
+		.custom-dropdown::after {
+			color: rgba(0, 0, 0, .4);
+		}
 	</style>
 </head>
 
 <body>
-	{% csrf_token %}
-	<div class="search-block">
-		<div class="container container--flex">
-			<input type="text" class="input--search" placeholder="Enter Error Displayed" size="1" id="errorDesc">
-			<div class="button-group">
-				<button class="button button--toolbar button--advanced js-button--advanced">
-					<span class="button--advanced__text">Advanced </span>
-					<i class="fa fa-sliders"></i>
-				</button>
 
-			</div>
-		</div>
-	</div>
-	<!--begin advanced search panel -->
-	<div id="panel-advanced-search" class="panel-advanced-search is-hidden">
-		<h2 class="heading--form">Advanced Search</h2>
-		<form action="" class="" id="searchError">
-			<div class="g-2up">
-				<div class="field gi">
-					<label for="" class="label">Error ID</label>
-					<input type="input" placeholder="" value="" class="input" id="errorID" />
-				</div>
-				<!--end field-->
-				<div class="field gi">
-					<label for="" class="label">Author</label>
-					<input id="" type="input" placeholder="" value="" class="input" id="editor" />
-				</div>
-				<!--end field-->
-			</div>
-			<div class="g-3up">
-				<div class="gi">
-					<label class="label">Cluster Number</label>
-					<fieldset class="fieldset">
-						<div class="fieldset__buttons">
-							<div class="button button--secondary button--small" onclick="selectAll('cluster')">Check All</div>
-							<div class="button button--secondary button--small" onclick="unSelectAll('cluster')">Check None</div>
-						</div>
-						<ul class="list listbox" id="cluster">
-							{% for cluster_data in cluster_data %}
-							<li>
-								<input type="checkbox" name="cluster" id="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_name }}
-							</li>
-							{% empty %}
-							<li class="disabled">
-								<input type="checkbox" name="cluster" id="0">------------
-							</li>
-							{% endfor %}
-						</ul>
-					</fieldset>
-				</div>
-				<div class="gi">
-					<label class="label">Project Number</label>
-					<fieldset class="fieldset">
-						<div class="fieldset__buttons">
-							<div class="button button--secondary button--small" onclick="selectAll('project')">Check All</div>
-							<div class="button button--secondary button--small" onclick="unSelectAll('project')">Check None</div>
-						</div>
-						<ul class="list listbox" id="project">
-							{% for project_data in project_data %}
-							<li>
-								<input type="checkbox" name="project" id="{{project_data.project_id}}">{{project_data.project_name}}
-							</li>
-							{% empty %}
-							<li class="disabled">
-								<input type="checkbox" name="project" id="0">------------
-							</li>
-							{% endfor %}
-						</ul>
-					</fieldset>
-				</div>
-				<div class="gi">
-					<label class="label">Module Number</label>
-					<fieldset class="fieldset">
-						<div class="fieldset__buttons">
-							<div class="button button--secondary button--small" onclick="selectAll('module')">Check All</div>
-							<div class="button button--secondary button--small" onclick="unSelectAll('module')">Check None</div>
-						</div>
-						<ul class="list listbox" id="module">
-							{% for module_data in module_data %}
-							<li>
-								<input type="checkbox" name="module" id="{{module_data.module_id}}">{{module_data.module_name}}
-							</li>
-							{% empty %}
-							<li class="disabled">
-								<input type="checkbox" name="module" id="0">------------
-							</li>
-							{% endfor %}
-							
-						</ul>
-					</fieldset>
-				</div>
-			</div>
-			<div class="g-3up">
-				<div class="field gi">
-					<!-- <label for="" class="label">Date From</label>
-                     <input type="date" class="date-picker"> -->
-				</div>
-				<div class="field gi">
-					<!-- <label for="" class="label">Date To</label>
-                     <input type="date" class="date-picker"> -->
-				</div>
-				<div class="form__actions--right gi">
-					<div class="button button--secondary button--small btn btn--small" onclick="resetForm('searchError')">reset</div>
-				</div>
-			</div>
-		</form>
+	<div class="select-container">
+		<span class="custom-dropdown big">
+			<select id="cluster">
+				<option value="All">All Clusters</option>
+				{% for cluster_data in cluster_data %}
+				<option value="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_name }}</option>
+				{% empty %}
+				<option value="">------------</option>
+				{% endfor %}
+			</select>
+		</span>
+
+		<span class="custom-dropdown big">
+			<select id="project">
+				<option value="All">All Projects</option>
+				{% for project_data in project_data %}
+				<option value="{{project_data.project_id}}">{{ project_data.project_name }}</option>
+				{% empty %}
+				<option value="">------------</option>
+				{% endfor %}
+			</select>
+		</span>
+
+		<span class="custom-dropdown big">
+			<select id="module">
+				<option value="All">All Module</option>
+				{% for module_data in module_data %}
+				<option value="{{module_data.module_id}}">{{ module_data.module_name }}</option>
+				{% empty %}
+				<option value="">------------</option>
+				{% endfor %}
+			</select>
+		</span>
 	</div>
 	<div class="container">
 		<div class="row table-responsive">
@@ -451,67 +220,73 @@
 	<script>
 		// advanced search modal
 		$(document).ready(function () {
-			$('.js-button--advanced').click(function () {
-				var panel = $(".panel-advanced-search");
-				if (panel.hasClass("is-hidden")) {
-					panel.slideDown();
-					panel.removeClass("is-hidden");
-				} else {
-					panel.slideUp();
-					panel.addClass("is-hidden");
-				}
-			});
 			// table pagination
 			$('#dataTable').DataTable({
 				"pagingType": "full_numbers",
-
 			});
 			// Setup - add a text input to each footer cell
-			$('#dataTable tfoot th').each( function () {
+			$('#dataTable tfoot th').each(function () {
 				var title = $(this).text();
-				$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-			} );
-		
+				$(this).html('<input type="text" placeholder="Search ' + title + '" />');
+			});
+
 			// DataTable
 			var table = $('#dataTable').DataTable();
-		
+
 			// Apply the search
-			table.columns().every( function () {
+			table.columns().every(function () {
 				var that = this;
-		
-				$( 'input', this.footer() ).on( 'keyup change', function () {
-					if ( that.search() !== this.value ) {
+
+				$('input', this.footer()).on('keyup change', function () {
+					if (that.search() !== this.value) {
 						that
-							.search( this.value )
+							.search(this.value)
 							.draw();
 					}
-				} );
-			} );
+				});
+			});
+			$('#cluster').change(function() {
+				if (this.value === "All") {
+				table
+					.columns(0)
+					.search('')
+					.draw();
+				} else {
+				table
+					.columns(0)
+					.search(this.value)
+					.draw();
+				}
+			});
+			$('#project').change(function() {
+				if (this.value === "All") {
+				table
+					.columns(0)
+					.search('')
+					.draw();
+				} else {
+				table
+					.columns(0)
+					.search(this.value)
+					.draw();
+				}
+			});
+			$('#module').change(function() {
+				if (this.value === "All") {
+				table
+					.columns(0)
+					.search('')
+					.draw();
+				} else {
+				table
+					.columns(0)
+					.search(this.value)
+					.draw();
+				}
+			});
 
 
 		});
-		// search modal select and unselecting
-		function selectAll(item) {
-			var items = document.getElementsByName(item);
-			for (var i = 0; i < items.length; i++) {
-				if (items[i].type == 'checkbox')
-					items[i].checked = true;
-			}
-		}
-
-		function unSelectAll(item) {
-			var items = document.getElementsByName(item);
-			for (var i = 0; i < items.length; i++) {
-				if (items[i].type == 'checkbox')
-					items[i].checked = false;
-			}
-		}
-		// reseting the form
-		function resetForm(formName) {
-			document.getElementById(formName).reset();
-			document.getElementById("errorDesc").value = "";
-		}
-		
 	</script>
 </body>
 
