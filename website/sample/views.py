@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 # https://stackoverflow.com/questions/10502135/django-queryset-to-dict-for-use-in-json
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+# https://stackoverflow.com/questions/39390927/convert-model-objects-all-to-json-in-python-using-django
+from django.core import serializers
 
 # Create your views here.
 
@@ -26,15 +28,19 @@ def search(request):
 
 
 def ajax(request):
-    dict_pair_cluster = ClusterData.objects.values_list()
-    dict_pair_project = ProjectData.objects.values_list()
-    dict_pair_module = ModuleData.objects.values_list()
-    dict_pair_error = ErrorData.objects.values_list()
+    all_cluster_data = ClusterData.objects.all()
+    all_module_data = ModuleData.objects.all()
+    all_project_data = ProjectData.objects.all()
+    all_error_data = ErrorData.objects.all()
     context = {
-        'cluster_data_pair': json.dumps(list(dict_pair_cluster), cls=DjangoJSONEncoder),
-        'module_data_pair': json.dumps(list(dict_pair_project), cls=DjangoJSONEncoder),
-        'project_data_pair': json.dumps(list(dict_pair_module), cls=DjangoJSONEncoder),
-        'error_data_pair': json.dumps(list(dict_pair_error), cls=DjangoJSONEncoder),
+        # 'cluster_data_pair': json.dumps(list(dict_pair_cluster), cls=DjangoJSONEncoder),
+        # 'module_data_pair': json.dumps(list(dict_pair_project), cls=DjangoJSONEncoder),
+        # 'project_data_pair': json.dumps(list(dict_pair_module), cls=DjangoJSONEncoder),
+        # 'error_data_pair': json.dumps(list(dict_pair_error), cls=DjangoJSONEncoder),
+        'cluster_data' : serializers.serialize("json", all_cluster_data),
+        'project_data' : serializers.serialize("json", all_project_data),
+        'module_data' : serializers.serialize("json", all_module_data),
+        'error_data' : serializers.serialize("json", all_error_data),
     }
     return render(request, 'sample/ajaxTrial.html', context)
 

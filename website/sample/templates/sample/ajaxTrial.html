@@ -283,6 +283,11 @@
 				width: 95%;
 			}
 		}
+		tfoot input {
+			width: 100%;
+			padding: 3px;
+			box-sizing: border-box;
+		}
 	</style>
 </head>
 
@@ -391,7 +396,7 @@
 				</div>
 				<div class="form__actions--right gi">
 					<div class="button button--secondary button--small btn btn--small" onclick="resetForm('searchError')">reset</div>
-					<div class="button button--secondary button--small btn btn--small" onclick="resetForm('searchError')">reset</div>
+					<div class="button button--secondary button--small btn btn--small" onclick="">Search</div>
 				</div>
 			</div>
 		</form>
@@ -413,30 +418,29 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- 
-					<tr>
-						<td id="error_id"></td>
-						<td id="error_name"></td>
-						<td id="error_description"></td>
-						<td id="error_mitigation"></td>
-						<td id="screenshot_link">
-							<a href="" target="_blank"></a>
-						</td>
-						<td id="author"></td>
-						<td id="error_validated"></td>
-						<td id="error_validator"></td>
-						<td id="editors_list"></td>
-					</tr>
-					 -->
 				</tbody>
+				<tfoot>
+					<tr>
+						<th>error_id</th>
+						<th>error_name</th>
+						<th>error_description</th>
+						<th>error_mitigation</th>
+						<th>screenshot_link</th>
+						<th>author</th>
+						<th>error_validated</th>
+						<th>error_validator</th>
+						<th>editors_list</th>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+	<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
-	<script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
-	<script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js'></script>
+	<script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script>
 	<script>
+		var jsErrorData = {{error_data|safe}}
+		console.log(jsErrorData)
 		// advanced search modal
 		$(document).ready(function () {
 			$('.js-button--advanced').click(function () {
@@ -449,10 +453,47 @@
 					panel.addClass("is-hidden");
 				}
 			});
+			// Table Search
+			$('#dataTable tfoot th').each( function () {
+				var title = $(this).text();
+				$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+			} );
+			// Search with every column
+			// Apply the search
+			var table = $('#example').DataTable();
+			table.columns().every( function () {
+				var that = this;
+		
+				$( 'input', this.footer() ).on( 'keyup change', function () {
+					if ( that.search() !== this.value ) {
+						that
+							.search( this.value )
+							.draw();
+					}
+				} );
+			} );
 			// table pagination
 			$('#dataTable').DataTable({
 				"pagingType": "full_numbers",
-				searching: false,
+				"data" : jsErrorData,
+				"columns": [
+					{"data" : "fields.error_id" },
+					{"data" : "fields.error_name" },
+					{"data" : "fields.error_description" },
+					{"data" : "fields.error_mitigation" },
+					{"data" : "fields.screenshot_link",
+						"render": function(data, type, row, meta){
+							if(type === 'display'){
+								data = '<a href="' + data + '">link</a>';
+							}
+							return data;
+						} 
+					},
+					{"data" : "fields.author" },
+					{"data" : "fields.error_validated" },
+					{"data" : "fields.error_validator" },
+					{"data" : "fields.editors_list" },
+				]
 			});
 			// cluster checkbox
 			$(".cluster").change(function(){
@@ -482,13 +523,16 @@
 
 		function cluster(checkValue, checkID) {
 			alert("Cluster "+checkID+" is "+checkValue)
+			// check the clusters selected and populate the projects and modules
 
 		}
 		function project(checkValue, checkID) {
 			alert("Project "+checkID+" is "+checkValue)
+			// check the projects selected and populate the modules
 		}
 		function module(checkValue, checkID) {
 			alert("Module "+checkID+" is "+checkValue)
+			// check the modules selected and populate the errors
 		}
 		// search modal select and unselecting
 		function selectAll(item) {
