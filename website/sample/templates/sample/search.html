@@ -431,12 +431,22 @@
 					</tr>
 					{% endfor %}
 				</tbody>
+				<tfoot>
+					<th>error_id</th>
+					<th>error_name</th>
+					<th>error_description</th>
+					<th>error_mitigation</th>
+					<th>screenshot_link</th>
+					<th>author</th>
+					<th>error_validated</th>
+					<th>error_validator</th>
+					<th>editors_list</th>
+				</tfoot>
 			</table>
 		</div>
 	</div>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+	<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
-	<script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
 	<script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js'></script>
 	<script>
 		// advanced search modal
@@ -454,9 +464,29 @@
 			// table pagination
 			$('#dataTable').DataTable({
 				"pagingType": "full_numbers",
-				searching: false,
 
 			});
+			// Setup - add a text input to each footer cell
+			$('#dataTable tfoot th').each( function () {
+				var title = $(this).text();
+				$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+			} );
+		
+			// DataTable
+			var table = $('#dataTable').DataTable();
+		
+			// Apply the search
+			table.columns().every( function () {
+				var that = this;
+		
+				$( 'input', this.footer() ).on( 'keyup change', function () {
+					if ( that.search() !== this.value ) {
+						that
+							.search( this.value )
+							.draw();
+					}
+				} );
+			} );
 
 
 		});
