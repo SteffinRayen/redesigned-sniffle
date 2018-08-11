@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    #https://simpleisbetterthancomplex.com/2015/12/04/package-of-the-week-django-widget-tweaks.html
     'widget_tweaks',  # form tweaks
 ]
 
@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 
 # Login redirect to search page
 LOGIN_REDIRECT_URL = '/sample/search'
+
+# Logout redirect to login page
+LOGOUT_REDIRECT_URL = '/sample/login'

@@ -25,7 +25,7 @@
             left: -20px;
             right: -40px;
             bottom: -40px;
-            background-image: url(https://www.pixelstalk.net/wp-content/uploads/2016/06/Burning-hd-nature-wallpaper-free-stock-photos-desktop-images.jpg);
+            background-image: url(http://getwallpapers.com/wallpaper/full/d/0/4/1117105-full-size-chicago-hd-wallpaper-2560x1600.jpg);
             background-size: cover;
             -webkit-filter: blur(5px);
             width: auto;
@@ -107,7 +107,7 @@
         }
 
         .login input[type=submit] {
-            
+
             width: 260px;
             height: 35px;
             background: #fff;
@@ -163,25 +163,22 @@
             <span>Systems</span>
         </div>
     </div>
-    <br>
-    {% if form.errors %}
-        <p>There is something wrong with what you entered :(</p>
+    <br> {% if form.errors %}
+    <p>There is something wrong with what you entered :(</p>
+    {% endif %} {% if next %}
+    <p>You gotta login to access :(</p>
     {% endif %}
-    {% if next %}
-        <p>You gotta login to access :(</p>
-    {% endif %}
-    
+
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         <div class="login">
-            {{form.username}}
-            {{form.password}}
+            {{form.username}} {{form.password}}
             <input type="submit" value="Login">
             <input type="hidden" name="next" value="{{ next }}">
         </div>
     </form>
-    <script type="text/javascript" >
-        $(document).ready(function(){
+    <script type="text/javascript">
+        $(document).ready(function () {
             $("#id_username").attr('placeholder', '{{form.username.label}}');
             $("#id_password").attr('placeholder', '{{form.password.label}}');
         });

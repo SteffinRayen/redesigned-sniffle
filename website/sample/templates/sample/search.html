@@ -1,4 +1,4 @@
-{% load widget_tweaks %}
+{% if user.is_authenticated %} {% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 
@@ -40,7 +40,7 @@
 
 		.select-container {
 			margin: 2rem;
-			text-align: center;
+			/* text-align: center; */
 		}
 
 		.big {
@@ -77,6 +77,7 @@
 			text-overflow: '';
 			-webkit-appearance: button;
 			/* hide default arrow in chrome OSX */
+			width: 350px;
 		}
 
 		.custom-dropdown::before,
@@ -106,14 +107,6 @@
 			border-radius: 0 3px 3px 0;
 		}
 
-		.custom-dropdown select[disabled] {
-			color: rgba(0, 0, 0, .3);
-		}
-
-		.custom-dropdown select[disabled]::after {
-			color: rgba(0, 0, 0, .1);
-		}
-
 		.custom-dropdown::before {
 			background-color: rgba(0, 0, 0, .15);
 		}
@@ -137,9 +130,31 @@
 			text-align: center;
 		}
 
+		.left {
+			float: left;
+			margin-left: 20px;
+		}
+
+		.right {
+			float: right;
+		}
+
 		.new {
+			padding: .5em;
+			padding-right: 2.5em;
+			border: 0;
+			margin: 0;
+			border-radius: 5px;
+			text-indent: 0.01px;
+			text-overflow: '';
+			/* hide default arrow in chrome OSX */
+			width: 200px;
 			text-align: right;
 			margin-right: 2%;
+		}
+
+		.btn-primary {
+			background-color: #3F51B5;
 		}
 	</style>
 </head>
@@ -147,7 +162,12 @@
 <body>
 
 	<div class="heading">
-		<h1>Some Suitable heading</h1>
+		<h1 class="left">Welcome {{ user.get_username }}</h1>
+		<div style="clear: both;"></div>
+		<a href="/sample/logout" class="btn btn-danger btn-lg right">
+			<span class="glyphicon glyphicon-log-out"></span> Log out
+		</a>
+
 	</div>
 
 	<div class="select-container">
@@ -184,23 +204,15 @@
 			</select>
 		</span>
 
-	</div>
 
-	<div class="new">
-		<p>
-			<button type="button" class="btn btn-primary js-create-book">
+		<span class="new">
+			<button type="button" class="btn btn-primary js-create-error">
 				<span class="glyphicon glyphicon-plus"></span>
-				New error
+				Add
 			</button>
-		</p>
+		</span>
 	</div>
 
-	<div class="modal fade" id="modal-book">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
 
 	<div class="container">
 		<div class="row table-responsive">
@@ -255,10 +267,11 @@
 			</table>
 		</div>
 	</div>
+
 	<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
 	<script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js'></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+
 	<script>
 		// advanced search modal
 		$(document).ready(function () {
@@ -294,7 +307,11 @@
 					}
 				});
 			});
+
+			// Overwriting the general search bar
 			$('#dataTable_filter label').html('');
+
+			// Filtering the table with dropdown menu
 			$('.custom_dropdown').change(function () {
 				if ($('#cluster').val() === "All" && $('#project').val() === "All" && $('#module').val() === "All") {
 					table
@@ -317,13 +334,28 @@
 						.search($('#cluster').val())
 						.draw();
 				}
-				
+
 			});
-			
-		});
+
+			$(".js-create-error").click(function () {
+				$.ajax({
+					url: '/upload/',
+					type: 'get',
+					dataType: 'json',
+					beforeSend: function () {
+						jQuery.noConflict();
+						$("#modal-error").modal("show");
+					},
+					success: function (data) {
+						$("#modal-error .modal-content").html(data.html_form);
+					}
+				});
+			});
 
 		});
 	</script>
+
 </body>
 
 </html>
+{% else %} {% include 'registration/login.html' %} {% endif %}
