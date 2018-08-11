@@ -322,20 +322,6 @@
 			
 		});
 
-		$("#id_cluster").change(function () {
-			var url = $("#clusterForm").attr("data-project-url");
-			var clusterId = $(this).val();
-
-			$.ajax({
-				url: url,
-				data: {
-					'cluster': clusterId
-				},
-				success: function (data) {
-					$("#id_project").html(data);
-				}
-			});
-
 		});
 	</script>
 </body>
