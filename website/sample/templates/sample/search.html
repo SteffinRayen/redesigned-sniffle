@@ -8,15 +8,12 @@
 	<title>Search</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css	">
 	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
 	<style>
-		*,
-		*:before,
-		*:after {
-			box-sizing: border-box;
+		* {
 			font-size: 20px;
-			margin: 0.5rem;
 		}
 
 		.container {
@@ -37,12 +34,12 @@
 		}
 
 		body {
-			
+
 			font-family: Arial, Helvetica;
 		}
 
 		.select-container {
-			/* margin: 2rem; */
+			margin: 2rem;
 			text-align: center;
 		}
 
@@ -68,14 +65,14 @@
 		}
 
 		.custom-dropdown select {
-			background-color: #000;
+			background-color: #3F51B5;
 			color: #fff;
 			font-size: inherit;
 			padding: .5em;
 			padding-right: 2.5em;
 			border: 0;
 			margin: 0;
-			border-radius: 3px;
+			border-radius: 5px;
 			text-indent: 0.01px;
 			text-overflow: '';
 			-webkit-appearance: button;
@@ -94,7 +91,7 @@
 			content: "\25BC";
 			height: 1em;
 			font-size: .625em;
-			line-height: 1;
+			line-height: 1.5em;
 			right: 1.2em;
 			top: 50%;
 			margin-top: -.5em;
@@ -124,14 +121,38 @@
 		.custom-dropdown::after {
 			color: rgba(0, 0, 0, .4);
 		}
+
+		.dataTables_filter input[type=search] {
+			width: 30vw;
+			font-size: 24px;
+			padding: 28px 20px;
+			margin: 8px;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+
+		.heading {
+			text-align: center;
+		}
+
+		.new {
+			text-align: right;
+			margin-right: 2%;
+		}
 	</style>
 </head>
 
 <body>
 
+	<div class="heading">
+		<h1>Some Suitable heading</h1>
+	</div>
+
 	<div class="select-container">
 		<span class="custom-dropdown big">
-			<select id="cluster">
+			<select id="cluster" class="custom_dropdown">
 				<option value="All">All Clusters</option>
 				{% for cluster_data in cluster_data %}
 				<option value="{{cluster_data.cluster_id}}">{{ cluster_data.cluster_name }}</option>
@@ -142,7 +163,7 @@
 		</span>
 
 		<span class="custom-dropdown big">
-			<select id="project">
+			<select id="project" class="custom_dropdown">
 				<option value="All">All Projects</option>
 				{% for project_data in project_data %}
 				<option value="{{project_data.project_id}}">{{ project_data.project_name }}</option>
@@ -153,7 +174,7 @@
 		</span>
 
 		<span class="custom-dropdown big">
-			<select id="module">
+			<select id="module" class="custom_dropdown">
 				<option value="All">All Module</option>
 				{% for module_data in module_data %}
 				<option value="{{module_data.module_id}}">{{ module_data.module_name }}</option>
@@ -162,7 +183,25 @@
 				{% endfor %}
 			</select>
 		</span>
+
 	</div>
+
+	<div class="new">
+		<p>
+			<button type="button" class="btn btn-primary js-create-book">
+				<span class="glyphicon glyphicon-plus"></span>
+				New error
+			</button>
+		</p>
+	</div>
+
+	<div class="modal fade" id="modal-book">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
 	<div class="container">
 		<div class="row table-responsive">
 			<table class="table table-striped table-bordered" style="width:100%" id="dataTable" data-order='[[ 0, "asc" ]]' data-page-length='5'>
@@ -201,15 +240,17 @@
 					{% endfor %}
 				</tbody>
 				<tfoot>
-					<th>error_id</th>
-					<th>error_name</th>
-					<th>error_description</th>
-					<th>error_mitigation</th>
-					<th>screenshot_link</th>
-					<th>author</th>
-					<th>error_validated</th>
-					<th>error_validator</th>
-					<th>editors_list</th>
+					<tr>
+						<th>error_id</th>
+						<th>error_name</th>
+						<th>error_description</th>
+						<th>error_mitigation</th>
+						<th>screenshot_link</th>
+						<th>author</th>
+						<th>error_validated</th>
+						<th>error_validator</th>
+						<th>editors_list</th>
+					</tr>
 				</tfoot>
 			</table>
 		</div>
@@ -217,12 +258,20 @@
 	<script src='https://code.jquery.com/jquery-3.3.1.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
 	<script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js'></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
 	<script>
 		// advanced search modal
 		$(document).ready(function () {
+
 			// table pagination
 			$('#dataTable').DataTable({
 				"pagingType": "full_numbers",
+				// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+				// columnDefs: [{
+				// 	targets: [0, 1, 2],
+				// 	className: 'mdl-data-table__cell--non-numeric'
+				// }]
+				"bLengthChange": false,
 			});
 			// Setup - add a text input to each footer cell
 			$('#dataTable tfoot th').each(function () {
@@ -245,46 +294,47 @@
 					}
 				});
 			});
-			$('#cluster').change(function() {
-				if (this.value === "All") {
-				table
-					.columns(0)
-					.search('')
-					.draw();
-				} else {
-				table
-					.columns(0)
-					.search(this.value)
-					.draw();
+			$('#dataTable_filter label').html('');
+			$('.custom_dropdown').change(function () {
+				if ($('#cluster').val() === "All" && $('#project').val() === "All" && $('#module').val() === "All") {
+					table
+						.columns(0)
+						.search('')
+						.draw();
+				} else if ($('#module').val() != "All") {
+					table
+						.columns(0)
+						.search($('#module').val())
+						.draw();
+				} else if ($('#project').val() != "All") {
+					table
+						.columns(0)
+						.search($('#project').val())
+						.draw();
+				} else if ($('#cluster').val() != "All") {
+					table
+						.columns(0)
+						.search($('#cluster').val())
+						.draw();
 				}
+				
 			});
-			$('#project').change(function() {
-				if (this.value === "All") {
-				table
-					.columns(0)
-					.search('')
-					.draw();
-				} else {
-				table
-					.columns(0)
-					.search(this.value)
-					.draw();
-				}
-			});
-			$('#module').change(function() {
-				if (this.value === "All") {
-				table
-					.columns(0)
-					.search('')
-					.draw();
-				} else {
-				table
-					.columns(0)
-					.search(this.value)
-					.draw();
-				}
-			});
+			
+		});
 
+		$("#id_cluster").change(function () {
+			var url = $("#clusterForm").attr("data-project-url");
+			var clusterId = $(this).val();
+
+			$.ajax({
+				url: url,
+				data: {
+					'cluster': clusterId
+				},
+				success: function (data) {
+					$("#id_project").html(data);
+				}
+			});
 
 		});
 	</script>
