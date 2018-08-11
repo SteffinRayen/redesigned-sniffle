@@ -460,20 +460,7 @@
 			} );
 			// Search with every column
 			// Apply the search
-			var table = $('#example').DataTable();
-			table.columns().every( function () {
-				var that = this;
-		
-				$( 'input', this.footer() ).on( 'keyup change', function () {
-					if ( that.search() !== this.value ) {
-						that
-							.search( this.value )
-							.draw();
-					}
-				} );
-			} );
-			// table pagination
-			$('#dataTable').DataTable({
+			var table = $('#dataTable').DataTable({
 				"pagingType": "full_numbers",
 				"data" : jsErrorData,
 				"columns": [
@@ -495,6 +482,19 @@
 					{"data" : "fields.editors_list" },
 				]
 			});
+			table.columns().every( function () {
+				var that = this;
+		
+				$( 'input', this.footer() ).on( 'keyup change', function () {
+					if ( that.search() !== this.value ) {
+						that
+							.search( this.value )
+							.draw();
+					}
+				} );
+			} );
+			// table pagination
+			
 			// cluster checkbox
 			$(".cluster").change(function(){
 				if (this.checked)
